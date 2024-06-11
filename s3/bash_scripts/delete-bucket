@@ -1,0 +1,30 @@
+#! /usr/bin/env bash
+echo "======== delete_bucket ========="
+# Check if an input variable has been provided
+if [ -z "$1" ]; then
+  echo "There needs to be a bucket name eg. ./bucket my-bucket-name"
+  exit 1
+fi
+
+BUCKET_NAME=$1
+echo "Input variable provided: $BUCKET_NAME"
+
+# list objects in the s3 bucket
+objects=$(aws s3api list-objects --bucket "$BUCKET_NAME" --query 'Contents[].{Key: Key}' --output text)
+
+# check if the bucket is empty
+if [ -z $objects ]; then
+  echo "Bucket is empty or does not exist."
+  exit 0
+fi
+
+# iterate over the list of objects and delete each one
+for object in $objects; do
+  echo "Deleting object: $objects"
+  aws s3api delete-object --bucket "$BUCKET_NAME" --key "$object"
+done
+
+echo "All objects deleted from buscket $BUCKET_NAME"
+
+aws s3api delete-bucket --bucket "$BUCKET_NAME"
+echo "Bucket deleted: $BUCKET_NAME"

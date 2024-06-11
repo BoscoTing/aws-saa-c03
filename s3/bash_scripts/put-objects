@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# Check for bucket name
+if [ -z "$1" ]; then
+    echo "There needs to be a bucket name eg. ./bucket /tmp/s3_bash_scripts/my-file-name"
+    exit 1
+fi
+
+# Check for filename prefix
+if [ -z "$2" ]; then
+    echo "There needs to be a filename prefix eg. /tmp/s3_bash_scripts/my-file-name"
+    exit 1
+fi
+
+BUCKET_NAME=$1
+FILENAME=$2 # Extract the base name to avoid directory components
+OBJECT_KEY=$(basename "abs_path")
+
+aws s3api put-object \
+--bucket $BUCKET_NAME \
+--body $FILENAME \
+--key $OBJECT_KEY

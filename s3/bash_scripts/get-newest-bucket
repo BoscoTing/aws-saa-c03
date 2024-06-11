@@ -1,0 +1,14 @@
+#! /usr/bin/env bash
+
+# Fetch the list of buckets with creation dates
+buckets=$(aws s3api list-buckets --query 'Buckets[*].{Name:Name,CreationDate:CreationDate}' --output json)
+
+# Sort and get the top 5 buckets
+top_buckets=$(echo "$buckets" | jq -r 'sort_by(.CreationDate) | reverse | .[:1] | .[] | [.CreationDate, .Name] | @tsv')
+
+# Display the top 5 sorted buckets
+echo -e "Bucket Name\t\tCreation Date"
+echo -e "-----------\t\t-------------"
+echo "$top_buckets" | while IFS=$'\t' read -r date name; do
+  echo -e "$name\t$date"
+done

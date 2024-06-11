@@ -1,0 +1,15 @@
+#! /usr/bin/env bash
+echo "======== create_bucket "========
+# Check if an input variable has been provided
+if [ -z "$1" ]; then
+  echo "There needs to be a bucket name eg. ./bucket my-bucket-name"
+  exit 1
+fi
+
+BUCKET_NAME=$1
+echo "Input variable provided: $BUCKET_NAME"
+
+aws s3api create-bucket --bucket $BUCKET_NAME \
+--create-bucket-configuration LocationConstraint=ap-northeast-3 \
+--query Location \
+--output text
