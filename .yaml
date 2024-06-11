@@ -1,0 +1,35 @@
+tasks:
+  - name: terraform
+    before: |
+    sudo apt update && sudo apt install gnupg && sudo apt install wget
+    wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+    echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+    sudo apt install terraform
+  # random utilities
+  - name: utils
+    before: |
+      sudo apt-get install tree
+  - name: powershell
+    before: |
+      # https://docs.microsoft.com/en-us/powershell/scripting/install/install-ubuntu?view=powershell-7.2
+      # https://docs.aws.amazon.com/powershell/latest/userguide/pstools-getting-set-up-linux-mac.html#install-aws.tools-on-linux-macos
+      # https://docs.aws.amazon.com/powershell/latest/reference/
+      sudo apt-get update
+      sudo apt-get install -y wget apt-transport-https software-properties-common
+      source /etc/os-release
+      wget -q https://packages.microsoft.com/config/ubuntu/$VERSION_ID/packages-microsoft-prod.deb
+      sudo dpkg -i packages-microsoft-prod.deb
+      rm packages-microsoft-prod.deb
+      sudo apt-get update
+      sudo api-get install -y powershell
+      # pwsh
+      # Install-Module -Nmae AWS.Tools.Installer
+  - name: aws-cli
+    env:
+        AWS_CLI_AUTO_PROMPT: on-partial
+    before:
+        cd /workspace
+        curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+        unzip awscliv2.zip
+        sudo ./aws/install
+        cd $THEIA_WORKSPACE_ROOT
