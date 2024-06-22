@@ -1,0 +1,19 @@
+{
+    "Statement": [
+       {
+          "Effect": "Allow",
+          "Principal": {
+             "AWS": "arn:aws:iam::381491915407:user/aws-saa"
+          },
+          "Action": [
+            "s3:GetObject",
+            "s3:PutObject",
+            "s3:ListBucket" 
+          ],
+          "Resource": [
+            "arn:aws:s3:::bucket-policy-example-bosco",
+            "arn:aws:s3:::bucket-policy-example-bosco/*"
+          ]
+       }
+    ]
+ }
