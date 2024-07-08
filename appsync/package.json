@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "aws-amplify": "^6.3.8",
+    "graphql-tag": "^2.12.6"
+  },
+  "type": "module",
+  "name": "appsync",
+  "version": "1.0.0",
+  "description": "https://ap-northeast-3.console.aws.amazon.com/appsync/home?region=ap-northeast-3#/pp7pzrascrfrtfdhjx7pswtslm/v1/home <br>",
+  "main": "AWS AppSync exports.js",
+  "scripts": {
+    "start": "node src/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
