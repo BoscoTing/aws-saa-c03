@@ -1,0 +1,71 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Parameters:
+  InstanceType:
+    Type: String
+    Default: t3.micro
+  # Since Osaka doesn't provide auto-scaling service, use ap-northeast-1 here instead
+  ImageId:
+    Type: String
+    # ap-northeast-1 AMI
+    Default: "ami-03350e4f182961c7f"
+  VpcId:
+    Type: String
+    Default: "vpc-08bd12bb5d6a16a14"
+  SubnetId: 
+    Type: String
+    Default: "subnet-0d690ebdf4b6c62e5"
+Resources:
+  SG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow http to client host
+      VpcId: !Ref VpcId
+      SecurityGroupIngress:
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 0.0.0.0/0
+  LaunchTemplate:
+    Type: 'AWS::EC2::LaunchTemplate'
+    Properties: 
+      LaunchTemplateData:
+        InstanceType: !Ref InstanceType 
+        ImageId: !Ref ImageId
+        NetworkInterfaces:
+          - DeviceIndex: 0
+            SubnetId: !Ref SubnetId
+            AssociatePublicIpAddress: true
+            Groups:
+              - !Ref SG
+        TagSpecifications:
+          - ResourceType: instance
+            Tags:
+              - Key: Name
+                Value: WebServerInstance
+        UserData:
+          Fn::Base64: |
+            #!/bin/bash
+            yum update -y
+            yum install -y httpd
+            systemctl start httpd
+            systemctl enable httpd
+            echo "<h1>Welcome to Apache Web Server on Amazon Linux 2</h1>" > /var/www/html/index.html
+  ASG:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      LaunchTemplate:
+        LaunchTemplateId: !Ref LaunchTemplate
+        Version: !GetAtt LaunchTemplate.LatestVersionNumber
+      MaxSize: '1'
+      MinSize: '1'
+      VPCZoneIdentifier: 
+        - !Ref SubnetId
+Outputs:
+  InstanceId:
+    Description: "Instance ID"
+    Value: !Ref LaunchTemplate
