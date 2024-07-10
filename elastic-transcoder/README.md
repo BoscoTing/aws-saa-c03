@@ -20,6 +20,8 @@ aws s3 cp "MP4 480 1.5MG.mp4" s3://videos.example-bosco/video.mp4 \
 
 ## Create Pipeline
 
+Create the IAM Role for Elastic Transcoder service first.
+
 ```sh
 aws elastictranscoder create-pipeline \
 --name my-transcoder-pipeline \
