@@ -1,0 +1,11 @@
+{
+    "Bucket":"videos.example-bosco",
+    "Permissions":[
+        {   
+            "GranteeType": "Canonical",
+            "Grantee": "your-aws-account-id",
+            "Access": ["FullControl"]
+        }
+    ],
+    "StorageClass":"ReducedRedundancy"
+}
