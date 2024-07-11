@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+echo "== deploy sns"
+
+STACK_NAME="sns-basic"
+
+# https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/deploy/index.html
+aws cloudformation deploy \
+--template-file template.yaml \
+--capabilities CAPABILITY_NAMED_IAM \
+--no-execute-changeset \
+--region ap-northeast-3 \
+--stack-name $STACK_NAME
