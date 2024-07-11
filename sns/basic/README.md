@@ -11,11 +11,8 @@ chmod ./bin/*
 ./bin/deploy
 ```
 
-## Attach CloudWatch Basic IAM Role for Lambda
+## Create AWSLambdaBasicExecutionRole for Your User
 
-```sh
-aws iam attach-role-policy --role-name LambdaCloudWatchBasicRole --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
-```
 
 ## Publish a Message via Lambda
 
