@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+echo "== send"
+
+root_path=$(realpath .)
+message_attributes_path=file://${root_path}/send-message.json
+
+QUEUE_URL="https://sqs.ap-northeast-3.amazonaws.com/660513648685/sqs-fifo-MyQueue-s8ooSWNfNvfm.fifo"
+
+
+NUM_MESSAGES=5
+for (( i=1; i<=NUM_MESSAGES; i++ ))
+do
+    message_body="Hello Ruby! This is message $i"
+    aws sqs send-message \
+    --queue-url "$QUEUE_URL" \
+    --message-body "$message_body" \
+    --message-group-id "MyGroup" \
+    --message-deduplication-id "$i" \
+    --message-attributes "$message_attributes_path"
+done
