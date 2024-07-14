@@ -1,0 +1,12 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  ContainerLambda:
+    Type: AWS::Serverless::Function
+    Metadata:
+      DockerContext: /Users/surfgreen/B/data_engineering/aws-saa-c03/lambda/container
+      Dockerfile: Dockerfile
+      SamResourceId: ContainerLambda
+    Properties:
+      PackageType: Image
+      ImageUri: containerlambda:latest
