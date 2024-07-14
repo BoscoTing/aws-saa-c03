@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+aws s3 rm s3://sf-example-star-trek-bosco/inputs/picard.jpg
+
+aws s3 cp picard.jpg s3://sf-example-star-trek-bosco/inputs/picard.jpg \
+--region ap-northeast-1
