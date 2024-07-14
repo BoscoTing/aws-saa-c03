@@ -1,0 +1,7 @@
+version=0.1
+[default.package.parameters]
+s3_bucket = "my-lambda-artifacts-bosco"
+region = "ap-northeast-3"
+[default.deploy.parameters]
+s3_bucket = "my-lambda-artifacts-bosco"
+region = "ap-northeast-3"

@@ -1,0 +1,12 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  ZipPackageLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: function.handler
+      Runtime: python3.12
+      PackageType: Zip
+      CodeUri: s3://my-lambda-artifacts-bosco/zip-package-python/12c6c80068a91807a1b1ed317e26d625
+    Metadata:
+      SamResourceId: ZipPackageLambda
