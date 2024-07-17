@@ -17,5 +17,6 @@ chmod u+x deploy
 ## Connect to instance
 
 ```sh
+sudo su - ubuntu
 redis-cli -h my-cache-bosco-wikeua.serverless.apne1.cache.amazonaws.com --tls
 ```
