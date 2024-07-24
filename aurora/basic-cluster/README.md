@@ -12,6 +12,13 @@ postgresql://[user[:password]@][netloc][:port][/dbname][?param1=value1&...]
 postgresql://database-endpoint:5432/mydatabase
 ```
 
+# Test Connection
+
+```sh
+psql postgresql://database-endpoint:5432/mydatabase
+```
+
+
 # Create a table
 
 ```sql
