@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -e
+
+root_path=$(realpath .)
+item_path=${root_path}/item.json
+DDB=dynamodb-table-SimpleTable-18D6Z3GJA93SP
+
+aws dynamodb put-item \
+--table-name $DDB \
+--item file://$item_path \
+--return-consumed-capacity TOTAL \
+--return-item-collection-metrics SIZE
