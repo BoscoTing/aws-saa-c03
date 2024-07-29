@@ -10,7 +10,7 @@ See example in policy.json
 
 ## Launch an EC2 Instance
 
-Use the IAM Role in the detial setting
+Use the IAM Role in the detail setting
 
 ## Follow Docs to Setup
 
@@ -40,5 +40,9 @@ https://docs.aws.amazon.com/msk/latest/developerguide/serverless-getting-started
 --topic my-topic
 ```
 
+Send messages
+
+```sh
 > Hello Mars
 > Goodbye Moon
+```
